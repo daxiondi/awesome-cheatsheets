@@ -24,7 +24,6 @@
 - [VimScript](languages/vimscript.md)
 - [Python](languages/python.md)
 - [Lua](languages/lua.lua)
-- [linux](languages/linux)
 ### :wrench:开发工具
 
 - [Gdb](tools/gdb.txt)
@@ -32,6 +31,7 @@
 - [Tmux](tools/tmux.txt)
 - [Git](tools/git.txt)
 - [FFmpeg](tools/ffmpeg.sh)
+- [Wireshark][tools/Wireshark.md]
 
 ### :pencil:文本编辑
 

@@ -232,6 +232,25 @@ netstat -i                # 显示网卡信息
 netstat -rn               # 显示当前系统路由表，同 route -n
 ss -an                    # 比 netstat -an 更快速更详细
 ss -s                     # 统计 TCP 的 established, wait 等
+ss -anti | grep -B 1 retrans #ss查看tcp重传
+ss -s                     #显示socket摘要
+ss -o state established '( dport = :http or sport = :http )' #显示所有状态为Established的HTTP连接
+ss dst 192.168.1.5      #匹配远程地址和端口号
+ss -4 state closing     #用TCP 状态过滤Sockets
+# ss -4 state FILTER-NAME-HERE
+# ss -6 state FILTER-NAME-HERE
+# FILTER-NAME-HERE 可以代表以下任何一个：
+# established、 syn-sent、 syn-recv、 fin-wait-1、 fin-wait-2、 time-wait、 closed、 close-wait、 last-ack、 listen、 closing、
+# all : 所有以上状态
+# connected : 除了listen and closed的所有状态
+# synchronized :所有已连接的状态除了syn-sent
+# bucket : 显示状态为maintained as minisockets,如：time-wait和syn-recv.
+# big : 和bucket相反.
+
+
+
+
+
 
 wget {url}                # 下载文件，可加 --no-check-certificate 忽略 ssl 验证
 wget -qO- {url}           # 下载文件并输出到标准输出（不保存）
@@ -731,8 +750,9 @@ curl -L cheat.sh                   # 速查表大全
 # 列出最常使用的命令
 history | awk '{a[$5]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head
 
-# 列出所有网络状态：ESTABLISHED / TIME_WAIT / FIN_WAIT1 / FIN_WAIT2 
+# 列出tcp所有网络状态：ESTABLISHED / TIME_WAIT / FIN_WAIT1 / FIN_WAIT2 
 netstat -n | awk '/^tcp/ {++tt[$NF]} END {for (a in tt) print a, tt[a]}'
+ss  -tan|awk 'NR>1{++S[$1]}END{for (a in S) print a,S[a]}'
 
 # 通过 SSH 来 mount 文件系统
 sshfs name@server:/path/to/folder /path/to/mount/point
