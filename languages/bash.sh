@@ -239,7 +239,7 @@ curl -sL {url}            # 同 wget -qO- {url} 没有 wget 的时候使用
 
 sz {file}                 # 发送文件到终端，zmodem 协议
 rz                        # 接收终端发送过来的文件
-
+watch                     # watch可以帮你监测一个命令的运行结果
 
 ##############################################################################
 # 变量操作
@@ -676,6 +676,22 @@ nmap 10.0.0.12                     # 扫描主机 1-1000 端口
 nmap -p 1024-65535 10.0.0.12       # 扫描给定端口
 nmap 10.0.0.0/24                   # 给定网段扫描局域网内所有主机
 nmap -O -sV 10.0.0.12              # 探测主机服务和操作系统版本
+nmap -p 32766 10.0.0.12 -sU        # 探测udp端口 
+nmap 172.31.15.4 -p 32767 -sU      # 探测多个端口
+nmap -iL iplist.txt -p 32766 -sU  # 探测多个ip，把ip写入iplist.txt文件中
+watch -n 5 'nmap -iL iplist.txt -p 32766 -sU' # 连续探测
+
+##############################################################################
+# 查看网络流量
+##############################################################################
+nethogs: #按进程查看流量占用
+iptraf: #按连接/端口查看流量
+ifstat: #按设备查看流量
+ethtool: #诊断工具
+tcpdump: #抓包工具
+ss: #连接查看工具
+nload ##查看出口带宽统计
+其他: dstat, slurm, nload, bmon
 
 
 ##############################################################################
@@ -688,7 +704,7 @@ man ascii                          # 显示 ascii 表
 getconf LONG_BIT                   # 查看系统是 32 位还是 64 位
 bind -P                            # 列出所有 bash 的快捷键
 mount | column -t                  # 漂亮的列出当前加载的文件系统
-curl ip.cn                         # 取得外网 ip 地址和服务商信息
+curl ip.me                         # 取得外网 ip 地址和服务商信息
 disown -a && exit                  # 关闭所有后台任务并退出
 cat /etc/issue                     # 查看 Linux 发行版信息
 lsof -i port:80                    # 哪个程序在使用 80 端口？
@@ -713,7 +729,7 @@ curl -L cheat.sh                   # 速查表大全
 ##############################################################################
 
 # 列出最常使用的命令
-history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head
+history | awk '{a[$5]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head
 
 # 列出所有网络状态：ESTABLISHED / TIME_WAIT / FIN_WAIT1 / FIN_WAIT2 
 netstat -n | awk '/^tcp/ {++tt[$NF]} END {for (a in tt) print a, tt[a]}'
