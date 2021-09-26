@@ -96,6 +96,7 @@ less {fn}           # 更高级点的 more，更多操作，q 退出
 head {fn}           # 显示文件头部数行，可用 head -3 abc.txt 显示头三行
 tail {fn}           # 显示文件尾部数行，可用 tail -3 abc.txt 显示尾部三行
 tail -f {fn}        # 持续显示文件尾部数据，可用于监控日志
+tail -n 100 1.log > 2.log # 切割日志文件
 nano {fn}           # 使用 nano 编辑器编辑文件
 vim {fn}            # 使用 vim 编辑文件
 diff {f1} {f2}      # 比较两个文件的内容
@@ -230,6 +231,9 @@ netstat -lntu             # 显示所有正在监听的 TCP 和 UDP 信息
 netstat -lntup            # 显示所有正在监听的 socket 及进程信息
 netstat -i                # 显示网卡信息
 netstat -rn               # 显示当前系统路由表，同 route -n
+cat /proc/sys/net/ipv4/tcp_allowed_congestion_control #tcp拥赛算法
+cat /proc/sys/net/ipv4/tcp_congestion_control #tcp拥赛算法
+cat /proc/sys/net/ipv4/tcp_window_scaling #tcp窗口缩放
 ss -an                    # 比 netstat -an 更快速更详细
 ss -s                     # 统计 TCP 的 established, wait 等
 ss -anti | grep -B 1 retrans #ss查看tcp重传
@@ -699,6 +703,9 @@ nmap -p 32766 10.0.0.12 -sU        # 探测udp端口
 nmap 172.31.15.4 -p 32767 -sU      # 探测多个端口
 nmap -iL iplist.txt -p 32766 -sU  # 探测多个ip，把ip写入iplist.txt文件中
 watch -n 5 'nmap -iL iplist.txt -p 32766 -sU' # 连续探测
+echo -n "hello" >/dev/udp/localhost/8000  #给udp端口发送消息并退出
+nc -u localhost 8000        #给udp端口发送消息不退出
+
 
 ##############################################################################
 # 查看网络流量
