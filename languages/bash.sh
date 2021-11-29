@@ -252,7 +252,7 @@ ss -4 state closing     #用TCP 状态过滤Sockets
 # big : 和bucket相反.
 
 
-
+ps aux|head -1;ps aux|grep -v PID|sort -rn -k +3 | head #top用不了可以查看进程占用cpu的情况
 
 
 
