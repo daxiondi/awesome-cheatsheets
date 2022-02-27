@@ -779,6 +779,9 @@ python -c "import test.pystone;print(test.pystone.pystones())"
 # 性能测试：测试内存带宽
 dd if=/dev/zero of=/dev/null bs=1M count=32768
 
+## 查看进程下的swap内存
+cat /proc/22760/smaps | egrep '^(Size|Swap)'
+
 # Linux 下挂载一个 iso 文件
 mount /path/to/file.iso /mnt/cdrom -oloop
 
